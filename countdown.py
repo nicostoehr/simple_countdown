@@ -19,11 +19,16 @@ for i in range(0, len(c)):
 def counter_label(label1, label2, label3):
     def count():
         global counter
-        counter -= 1
-        label3.config(text=str(counter%60)+"s")
-        label3.after(1000, count)
-        label2.config(text=str(counter//60%60)+"m:")
-        label1.config(text=str(counter//60//60%24)+"h:")
+        if counter > 1:
+            counter -= 1
+            label3.config(text=str(counter % 60) + "s")
+            label3.after(1000, count)
+            label2.config(text=str(counter // 60 % 60) + "m:")
+            label1.config(text=str(counter // 60 // 60 % 24) + "h:")
+        else:
+            label1.config(text="")
+            label2.config(text="DONE")
+            label3.config(text="")
     count()
 root = tk.Tk()
 root.title("SpeedRun Counter")
